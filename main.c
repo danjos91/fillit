@@ -174,7 +174,6 @@ int ***find_coordinates(char **map) {
     int i;
     int j;
     int z;
-    int col;
     int start;
     int end;
     int x;
@@ -199,12 +198,11 @@ int ***find_coordinates(char **map) {
     i = 0;
     j = 0;
     z = -1;
-    col = 0;
     start = 0;
     end = 3;
     x = 0;
     y = -1;
-    //ahora vamos a revisar el mapa y extraer cada coordenada donde encontremos #
+    //now we check the map and get the coordinates where is # in each figure
     while(j <= (number_of_rows(map)))//de cero hasta 31
     {
         i = 0;
@@ -234,8 +232,76 @@ int ***find_coordinates(char **map) {
     }
     return(cordinates);
 }
+
+void print_solution(char **s)
+{
+    int i;
+
+    i = 0;
+    while (s[i])
+    {
+        ft_putstr(s[i]);
+        ft_putchar('\n');
+        i++;
+    }
+}
+
+int ft_solve_fillit(int ***coordinates, char **sol_space)
+{
+    int i;
+    int j;
+    int max_sol;
+
+    i = 0;
+    max_sol = 0;
+    while (sol_space[i])
+    {
+        max_sol = i++;
+    }
+    int letter;
+    int l;
+
+    letter = 65;
+    l = 0;
+    i = 0;
+    while (i <= max_sol)
+    {
+        j = 0;
+        while (j <= max_sol)
+        {
+            if (sol_space[i][j] == '.')
+            {
+                if (((coordinates[l][1][0]) - ((coordinates[l][0][0]) - i)) > max_sol ||
+                    ((coordinates[l][2][0]) - ((coordinates[l][0][0]) - i)) > max_sol ||
+                    ((coordinates[l][3][0]) - ((coordinates[l][0][0]) - i)) > max_sol)
+                {
+                    ft_putstr("make map bigger");
+                    return (0);
+                }
+                if ((sol_space[(coordinates[l][1][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][1][1]) - ((coordinates[l][0][1]) - j)] == '.') &&
+                    (sol_space[(coordinates[l][2][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][2][1]) - ((coordinates[l][0][1]) - j)] == '.') &&
+                    (sol_space[(coordinates[l][3][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][3][1]) - ((coordinates[l][0][1]) - j)] == '.'))
+                {
+                    sol_space[i][j] = letter;
+                    sol_space[(coordinates[l][1][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][1][1]) - ((coordinates[l][0][1]) - j)] = letter;
+                    sol_space[(coordinates[l][2][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][2][1]) - ((coordinates[l][0][1]) - j)] = letter;
+                    sol_space[(coordinates[l][3][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][3][1]) - ((coordinates[l][0][1]) - j)] = letter;
+                    l++;
+                    letter = 'A' + l;
+                    j = -1;
+                    i = 0;
+                }
+            }
+            j++;
+        }
+       // print_solution(sol_space);
+        i++;
+    }
+    return (1);
+}
 int		main()//int argc, char **argv)
 {
+    int max_sol;
     int i;
     int j;
     int a;
@@ -353,6 +419,9 @@ int		main()//int argc, char **argv)
         }
         i++;
     }
+    //lets start to print the answer
+    ft_solve_fillit(coordinates, sol_space);
+    print_solution(sol_space);
     return (0);
 }
 
