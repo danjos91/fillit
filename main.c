@@ -144,25 +144,29 @@ int number_of_contacts(char **map, int i, int j, int end, int start)
     return (a);
 }
 
-char **solution_space(int max_rows)
+char **solution_space(int max_rows, int increment)
 {
     int square_size;
     int n;
     int i;
     char **square;
 
+    n = 0;
     square_size = 0;// max rows is the number of cells that have to be used for the solution
     while(square_size < max_rows)
     {
         square_size = n * n;
         n++;
     }
+    n = n + increment;
     square = (char **)ft_memalloc(sizeof(char *) * n - 1);
-    square[n - 1 ] = 0;
+    //square[n - 1 ] = 0;
     i = 0;
     while (i < n - 1)
     {
         square[i] = ft_strsub("...........", 0, n - 1);
+        ft_putstr(square[i]);
+        ft_putchar('\n');
         i++;
     }
 return(square);
@@ -246,58 +250,60 @@ void print_solution(char **s)
     }
 }
 
-int ft_solve_fillit(int ***coordinates, char **sol_space)
+char **ft_solve_fillit(int ***coordinates, char **sol_space, int i, int j, int *l, int n)//increment is the possible extension of the map
 {
-    int i;
-    int j;
+
     int max_sol;
-
-    i = 0;
-    max_sol = 0;
-    while (sol_space[i])
-    {
-        max_sol = i++;
-    }
     int letter;
-    int l;
+    int increment;
+    int m;
+    int last;
 
-    letter = 65;
-    l = 0;
-    i = 0;
-    while (i <= max_sol)
+    m = 0;
+    last = 27;
+    increment = 0;
+    max_sol = 0;
+    while (sol_space[m])
+        max_sol = m++;
+    letter = 'A' + l[n];
+    if(i <= max_sol && j<= max_sol && n < 8 && letter < 73)
     {
-        j = 0;
-        while (j <= max_sol)
+        if ((j == max_sol) && (i < max_sol))
         {
-            if (sol_space[i][j] == '.')
-            {
-                if (((coordinates[l][1][0]) - ((coordinates[l][0][0]) - i)) > max_sol ||
-                    ((coordinates[l][2][0]) - ((coordinates[l][0][0]) - i)) > max_sol ||
-                    ((coordinates[l][3][0]) - ((coordinates[l][0][0]) - i)) > max_sol)
-                {
-                    ft_putstr("make map bigger");
-                    return (0);
-                }
-                if ((sol_space[(coordinates[l][1][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][1][1]) - ((coordinates[l][0][1]) - j)] == '.') &&
-                    (sol_space[(coordinates[l][2][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][2][1]) - ((coordinates[l][0][1]) - j)] == '.') &&
-                    (sol_space[(coordinates[l][3][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][3][1]) - ((coordinates[l][0][1]) - j)] == '.'))
-                {
-                    sol_space[i][j] = letter;
-                    sol_space[(coordinates[l][1][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][1][1]) - ((coordinates[l][0][1]) - j)] = letter;
-                    sol_space[(coordinates[l][2][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][2][1]) - ((coordinates[l][0][1]) - j)] = letter;
-                    sol_space[(coordinates[l][3][0]) - ((coordinates[l][0][0]) - i)][(coordinates[l][3][1]) - ((coordinates[l][0][1]) - j)] = letter;
-                    l++;
-                    letter = 'A' + l;
-                    j = -1;
-                    i = 0;
-                }
-            }
-            j++;
+            i++;
+            j = -1;
         }
-       // print_solution(sol_space);
-        i++;
+        if (j < max_sol)
+            j++;
+        if (sol_space[i][j] == '.')
+        {
+            if (((coordinates[l[n]][1][0]) - ((coordinates[l[n]][0][0]) - i)) > max_sol ||
+                ((coordinates[l[n]][2][0]) - ((coordinates[l[n]][0][0]) - i)) > max_sol ||
+                ((coordinates[l[n]][3][0]) - ((coordinates[l[n]][0][0]) - i)) > max_sol) {
+                ft_putstr("make map bigger");
+                ft_putchar('\n');
+                increment++;
+                sol_space = solution_space(31, increment);
+                i = 0;
+                j = -1;
+                l = 0;
+            } else if ((sol_space[(coordinates[l[n]][1][0]) - ((coordinates[l[n]][0][0]) - i)][(coordinates[l[n]][1][1]) - ((coordinates[l[n]][0][1]) - j)] == '.')
+                       && (sol_space[(coordinates[l[n]][2][0]) - ((coordinates[l[n]][0][0]) - i)][(coordinates[l[n]][2][1]) - ((coordinates[l[n]][0][1]) - j)] == '.')
+                       && (sol_space[(coordinates[l[n]][3][0]) - ((coordinates[l[n]][0][0]) - i)][(coordinates[l[n]][3][1]) - ((coordinates[l[n]][0][1]) - j)] == '.'))
+            {
+                sol_space[i][j] = letter;
+                sol_space[(coordinates[l[n]][1][0]) - ((coordinates[l[n]][0][0]) - i)][(coordinates[l[n]][1][1]) -
+                                                                                 ((coordinates[l[n]][0][1]) - j)] = letter;
+                sol_space[(coordinates[l[n]][2][0]) - ((coordinates[l[n]][0][0]) - i)][(coordinates[l[n]][2][1]) -
+                                                                                 ((coordinates[l[n]][0][1]) - j)] = letter;
+                sol_space[(coordinates[l[n]][3][0]) - ((coordinates[l[n]][0][0]) - i)][(coordinates[l[n]][3][1]) -
+                                                                                 ((coordinates[l[n]][0][1]) - j)] = letter;
+                n++;
+            }
+        }
+        sol_space = ft_solve_fillit(coordinates, sol_space, i, j, l, n);
     }
-    return (1);
+    return (sol_space);
 }
 int		main()//int argc, char **argv)
 {
@@ -334,11 +340,10 @@ int		main()//int argc, char **argv)
         return (0);
     i = 0;
     col = 0;
-    while(col <= (max_rows))//en este ciclo se repite el mismo col 3 veces y se va aumentando i, y solo cuando cuando i llega a 3 se aumenta col
+    while(col <= (max_rows))//en este ciclo se repite el mismo col 3 veces y se va aumentando i, y solo cuando i llega a 3 se aumenta col
     {
         if (map[j][i] == '#')
         {
-
             figure[x][y] = i;//guardamos las coordenadas de las figuras
             y++;
             figure[x][y] = j;
@@ -381,7 +386,7 @@ int		main()//int argc, char **argv)
         i++;
     }
     i = 0;
-    sol_space = solution_space(max_rows);
+    sol_space = solution_space(max_rows, 0);
     ft_putstr("SOL");
     ft_putchar('\n');
     while(sol_space[i])
@@ -419,8 +424,20 @@ int		main()//int argc, char **argv)
         }
         i++;
     }
+   int *l;
+    l = (int*)malloc(sizeof(int) * 8);
+    l[0] = 0;
+    l[1] = 1;
+    l[2] = 2;
+    l[3] = 4;
+    l[4] = 5;
+    l[5] = 6;
+    l[6] = 7;
+    l[7] = 3;
     //lets start to print the answer
-    ft_solve_fillit(coordinates, sol_space);
+    sol_space = ft_solve_fillit(coordinates, sol_space, 0, -1, l, 0);
+    ft_putstr("FINAL SOLUTION:");
+    ft_putchar('\n');
     print_solution(sol_space);
     return (0);
 }
