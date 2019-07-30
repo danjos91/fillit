@@ -378,7 +378,6 @@ int		main()//int argc, char **argv)
     figures = (max_rows + 1) / 4;
     sol_space = solution_space(max_rows, 0);
     coordinates = find_coordinates(map, triple_arr(map), 0, 3);
-    ft_putstr("MYSTERY");
     print_coordinates(coordinates, figures);
     while (!all_solutions(figures, sol_space, coordinates))
     {
