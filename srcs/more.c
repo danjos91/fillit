@@ -1,19 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   more.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/31 18:24:30 by nshelly           #+#    #+#             */
+/*   Updated: 2019/07/31 18:31:21 by nshelly          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/fillit.h"
 
-void print_solution(char **s)
+int		all_solutions(int n, char **sp, int ***c)
 {
-    int i;
+    int	**combinations;
+    int	i;
+    int	a;
 
+    combinations = double_array(n);
+    combinations[0] = create_first(combinations[0], n);
     i = 0;
-    while (s[i])
+    a = 0;
+    while ((i + 1) < factorial(n))
     {
-        ft_putstr(s[i]);
-        ft_putchar('\n');
+        copy_next(combinations[i], combinations[i + 1], n);
+        if ((i + 1) % factorial(n - 1) == 0)
+            ft_swp(&combinations[i + 1][0], &combinations[i + 1][n - 1]);
+        else
+        {
+            ft_swp(&combinations[i + 1][0], &combinations[i + 1][++a]);
+            if (a == n - 2)
+                a = 0;
+        }
         i++;
+        clean_map(sp, max_solution(sp));
+        if (ft_solve_fillit(c, sp, combinations[i - 1], n))
+            return (1);
     }
+    return (0);
 }
 
-int ft_solve_fillit(int ***c, char **sp, int *l, int figures)
+int		ft_solve_fillit(int ***c, char **sp, int *l, int figures)
 {
     int i;
     int j;
@@ -21,13 +49,13 @@ int ft_solve_fillit(int ***c, char **sp, int *l, int figures)
 
     i = -1;
     n = 0;
-    while((++i <= max_solution(sp)) && (n < figures))
+    while ((++i <= max_solution(sp)) && (n < figures))
     {
         j = -1;
-        while(++j <= max_solution(sp))
+        while (++j <= max_solution(sp))
             if (sp[i][j] == '.')
             {
-                if (check_and_print(c, sp,l[n], i, j))
+                if (check_and_print(c, sp, l[n], i, j))
                     n++;
                 if (n == figures)
                 {
@@ -39,42 +67,33 @@ int ft_solve_fillit(int ***c, char **sp, int *l, int figures)
     return (0);
 }
 
-void clean_map(char **map, int max_sol)
+int		check_and_print(int ***c, char **sp, int l, int i, int j)
 {
-    int i;
-    int j;
+    int ms;
 
-    i = 0;
-    j = 0;
-    while (i <= max_sol)
+    ms = max_solution(sp);
+    if (!check_vertical(c, ms, i, l) ||\
+			((i == ms) && (j == (ms - 2))))
+        return (0);
+    else
     {
-        j = 0;
-        while (j <= max_sol)
+        if (print_figure(c, sp, l, i, j))
         {
-            map[i][j] = '.';
-            j++;
+            return (1);
         }
-        i++;
     }
+    return (0);
 }
 
-int max_solution(char **sp)
+
+int		max_solution(char **sp)
 {
-    int m;
-    int max_sol;
+	int m;
+	int max_sol;
 
-    max_sol = 0;
-    m = 0;
-    while (sp[m])
-        max_sol = m++;
-    return(max_sol);
-}
-
-void ft_swp(int *a, int *b)
-{
-    int tmp;
-
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
+	max_sol = 0;
+	m = 0;
+	while (sp[m])
+		max_sol = m++;
+	return (max_sol);
 }

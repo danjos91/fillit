@@ -35,7 +35,7 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 INC_NAME = fillit.h
 
-SRC_NAME = main.c final.c reader.c more.c print.c worker.c
+SRC_NAME = main.c final.c reader.c more.c print.c worker.c arrays.c
 
 all: $(NAME)
 

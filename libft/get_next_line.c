@@ -42,9 +42,6 @@ int			get_next_line(const int fd, char **line)
 	if ((fd < 0) || (fd > OPEN_MAX) || (!line) || (!saved[fd] && \
 				!(saved[fd] = ft_strnew(0))))
 		return (-1);
-	ft_putstr("OPEN MAX = ");
-	ft_putnbr(OPEN_MAX);
-	ft_putchar('\n');
 	while (!ft_strchr(saved[fd], '\n') && (r = read(fd, buffer, BUFF_SIZE)) > 0)
 	{
 		buffer[r] = '\0';
