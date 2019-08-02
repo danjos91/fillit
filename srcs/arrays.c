@@ -44,7 +44,6 @@ int		***triple_arr(char **map)
 	int	j;
 	int	***crdnts;
 
-	nbr_tets = 0;
 	i = 0;
 	nbr_tets = nr(map + 1) / 4 + 1;
 	crdnts = (int ***)ft_memalloc(sizeof(int **) * nbr_tets);
@@ -57,19 +56,4 @@ int		***triple_arr(char **map)
 		i++;
 	}
 	return (crdnts);
-}
-
-int		**double_array(int n)
-{
-	int	i;
-	int	**combinations;
-
-	i = 0;
-	combinations = (int **)ft_memalloc(sizeof(int *) * factorial(n));
-	while (i < factorial(n))
-	{
-		combinations[i] = (int *)ft_memalloc(sizeof(int) * n);
-		i++;
-	}
-	return (combinations);
 }

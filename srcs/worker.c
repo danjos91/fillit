@@ -51,3 +51,15 @@ int		***find_coordinates(char **map, int ***coordinates, int start, int end)
 	}
 	return (coordinates);
 }
+
+int		factorial(int value)
+{
+    if (value == 0)
+        return (1);
+    if (value > 1)
+    {
+        value = value * (factorial(value - 1));
+    }
+    return (value);
+}
+

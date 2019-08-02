@@ -6,7 +6,7 @@
 /*   By: nshelly <nshelly@student.21school>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 18:14:49 by nshelly           #+#    #+#             */
-/*   Updated: 2019/07/31 20:28:09 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/02 06:03:05 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	main(int ac, char **av)
 	char	**map;
 	int		***cor;
 	int		inc;
+	int     n;
+    char    str[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	inc = -1;
-	arr = 0;
+	inc = 0;
 	if (ac != 2)
 	{
 		ft_putstr("usage: ./fillit input file\n");
@@ -36,7 +37,9 @@ int	main(int ac, char **av)
 	}
 	map = ft_strsplit(arr, '\n');
 	cor = find_coordinates(map, triple_arr(map), 0, 3);
-	while (!all_solutions((nr(map) / 4), sp(nr(map), inc), cor))
-		inc++;
+    n = nr(map) / 4;
+    str[n]= '\0';
+    while(!ft_permute(str, 0, n-1, cor, sp(nr(map), inc)))
+        inc++;
 	return (0);
 }

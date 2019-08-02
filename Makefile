@@ -6,7 +6,7 @@
 #    By: nshelly <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/12 01:56:58 by nshelly           #+#    #+#              #
-#    Updated: 2019/04/26 18:55:56 by nshelly          ###   ########.fr        #
+#    Updated: 2019/08/02 06:04:36 by nshelly          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 INC_NAME = fillit.h
 
-SRC_NAME = main.c final.c reader.c more.c print.c worker.c arrays.c
+SRC_NAME = main.c reader.c more.c print.c worker.c arrays.c
 
 all: $(NAME)
 

@@ -12,33 +12,45 @@
 
 #include "../includes/fillit.h"
 
-int		all_solutions(int n, char **sp, int ***c)
+void ft_swap(char *x, char *y)
 {
-    int	**combinations;
-    int	i;
-    int	a;
+    char temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
+}
 
-    combinations = double_array(n);
-    combinations[0] = create_first(combinations[0], n);
-    i = 0;
-    a = 0;
-    while ((i + 1) < factorial(n))
+int ft_permute(char *a, int l, int r, int ***c, char **map)
+{
+    int i;
+    static int q;
+    int v[r + 1];
+
+    if (l == r)
     {
-        copy_next(combinations[i], combinations[i + 1], n);
-        if ((i + 1) % factorial(n - 1) == 0)
-            ft_swp(&combinations[i + 1][0], &combinations[i + 1][n - 1]);
-        else
+        q = 0;
+        while (a[q] != '\0')
         {
-            ft_swp(&combinations[i + 1][0], &combinations[i + 1][++a]);
-            if (a == n - 2)
-                a = 0;
+            v[q] = a[q] - 'A';
+            q++;
         }
-        i++;
-        clean_map(sp, max_solution(sp));
-        if (ft_solve_fillit(c, sp, combinations[i - 1], n))
-            return (1);
+        q = 0;
+        clean_map(map, max_solution(map));
+        if (ft_solve_fillit(c, map, v, r + 1))
+            exit(EXIT_SUCCESS);
     }
-    return (0);
+    else
+    {
+        i = l;
+        while(i <= r)
+        {
+            ft_swap((a+l), (a+i));
+            ft_permute(a, l+1, r, c, map);
+            ft_swap((a+l), (a+i));
+            i++;
+        }
+    }
+    return(0);
 }
 
 int		ft_solve_fillit(int ***c, char **sp, int *l, int figures)
