@@ -20,12 +20,14 @@ void ft_swap(char *x, char *y)
     *y = temp;
 }
 
-int ft_permute(char *a, int l, int r, int ***c, char **map)
+int ft_permute( int l, int r, int ***c, char **map)
 {
     int i;
     static int q;
     int v[r + 1];
+    static char a[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    a[r + 1] = '\0';
     if (l == r)
     {
         q = 0;
@@ -45,7 +47,7 @@ int ft_permute(char *a, int l, int r, int ***c, char **map)
         while(i <= r)
         {
             ft_swap((a+l), (a+i));
-            ft_permute(a, l+1, r, c, map);
+            ft_permute(l+1, r, c, map);
             ft_swap((a+l), (a+i));
             i++;
         }

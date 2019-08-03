@@ -37,7 +37,7 @@ int					***find_coordinates(char **map, int ***coordinates,\
 		int start, int end);
 int					***triple_arr(char **map);
 char				*reader(int fd);
-int ft_permute(char *a, int l, int r, int ***c, char **map);
+int ft_permute(int l, int r, int ***c, char **map);
 void ft_swap(char *x, char *y);
 
 #endif

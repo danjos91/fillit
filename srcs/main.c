@@ -6,7 +6,7 @@
 /*   By: nshelly <nshelly@student.21school>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 18:14:49 by nshelly           #+#    #+#             */
-/*   Updated: 2019/08/02 06:03:05 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/07/31 20:28:09 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 		ft_putstr("usage: ./fillit input file\n");
 		exit(EXIT_SUCCESS);
 	}
-	fd = open(av[1], O_RDONLY);
+	fd = open("sample.fillit2", O_RDONLY);
 	if (!(arr = reader(fd)))
 	{
 		close(fd);
@@ -39,7 +39,7 @@ int	main(int ac, char **av)
 	cor = find_coordinates(map, triple_arr(map), 0, 3);
     n = nr(map) / 4;
     str[n]= '\0';
-    while(!ft_permute(str, 0, n-1, cor, sp(nr(map), inc)))
+    while(!ft_permute(0, n-1, cor, sp(nr(map), inc)))
         inc++;
 	return (0);
 }
