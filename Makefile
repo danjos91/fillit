@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nshelly <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/03/12 01:56:58 by nshelly           #+#    #+#              #
-#    Updated: 2019/08/02 06:04:36 by nshelly          ###   ########.fr        #
+#    Created: 2019/08/11 22:24:46 by nshelly           #+#    #+#              #
+#    Updated: 2019/08/11 23:17:44 by nshelly          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ WAC=\033[33m
 CC = gcc
 CC_FLAGS = -Wall -Werror -Wextra
 
-SRC_PATH = ./srcs/
+SRC_PATH = ./src/
 INC_PATH = ./includes/
 OBJ_PATH = ./obj/
 LFT_PATH = ./libft/
@@ -35,7 +35,7 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 
 INC_NAME = fillit.h
 
-SRC_NAME = main.c reader.c more.c print.c worker.c arrays.c
+SRC_NAME = main.c figures.c solution_map.c solve.c reader.c
 
 all: $(NAME)
 

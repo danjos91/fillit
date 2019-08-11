@@ -34,12 +34,12 @@ static void	divide_and_conserve(int fd, char **saved, char **line)
 
 int			get_next_line(const int fd, char **line)
 {
-	static char	*saved[OPEN_MAX];
+	static char	*saved[10240];
 	char		buffer[BUFF_SIZE + 1];
 	char		*tmp;
 	ssize_t		r;
 
-	if ((fd < 0) || (fd > OPEN_MAX) || (!line) || (!saved[fd] && \
+	if ((fd < 0) || (fd > 10240) || (!line) || (!saved[fd] && \
 				!(saved[fd] = ft_strnew(0))))
 		return (-1);
 	while (!ft_strchr(saved[fd], '\n') && (r = read(fd, buffer, BUFF_SIZE)) > 0)

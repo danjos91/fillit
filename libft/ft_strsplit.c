@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nshelly <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 13:32:42 by nshelly           #+#    #+#             */
-/*   Updated: 2019/04/26 18:56:19 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/02 17:42:38 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char		**ft_strsplit(char const *s, char c)
 	if (!s)
 		return (NULL);
 	len = ft_words(s, c);
-	if ((str = ((char **)ft_memalloc(sizeof(char *) * len + 1))) == NULL)
+	if ((str = ((char **)ft_memalloc(sizeof(char *) * (len + 1)))) == NULL)
 		return (NULL);
 	if (ft_splitstr(str, s, c, len))
 		return (str);
