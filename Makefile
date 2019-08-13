@@ -6,60 +6,38 @@
 #    By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/11 22:24:46 by nshelly           #+#    #+#              #
-#    Updated: 2019/08/11 23:17:44 by nshelly          ###   ########.fr        #
+#    Updated: 2019/08/13 13:30:33 by nshelly          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all, $(NAME), clean, fclean, re
-
 NAME = fillit
-
-NOC=\033[0m
-OKC=\033[32m
-ERC=\033[31m
-WAC=\033[33m
 
 CC = gcc
 CC_FLAGS = -Wall -Werror -Wextra
 
 SRC_PATH = ./src/
-INC_PATH = ./includes/
 OBJ_PATH = ./obj/
 LFT_PATH = ./libft/
 
-SRC = $(addprefix $(SRC_PATH),$(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
-INC = $(addprefix -I,$(INC_PATH))
-
-OBJ_NAME = $(SRC_NAME:.c=.o)
-
-INC_NAME = fillit.h
-
-SRC_NAME = main.c figures.c solution_map.c solve.c reader.c
+SRC = src/main.c src/figures.c src/solution_map.c src/solve.c src/reader.c
+OBJ = obj/main.o obj/figures.o obj/solution_map.o obj/solve.o obj/reader.o 
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo
 	@make -C $(LFT_PATH)
 	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft
-	@echo "$(OKC)FILLIT:\t\tFillit ready$(NOC)"
-	@echo "======"
 
-
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+./obj/%.o: ./src/%.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CC_FLAGS) $(INC) -o $@ -c $<
-	@echo -n =
+	@$(CC) $(CC_FLAGS) -I ./includes/ -o $@ -c $<
 
 clean:
 	@make -C $(LFT_PATH) clean
 	@rm -rf $(OBJ_PATH)
-	@echo "$(WAC)FILLIT:\t\tRemoving OBJ path: ./obj/$(NOC)"
 
 fclean: clean
 	@make -C $(LFT_PATH) fclean
 	@rm -f $(NAME)
-	@echo "$(WAC)FILLIT:\t\tRemoving fillit executable$(NOC)"
 
 re: fclean all
