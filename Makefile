@@ -6,7 +6,7 @@
 #    By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/11 22:24:46 by nshelly           #+#    #+#              #
-#    Updated: 2019/08/13 13:30:33 by nshelly          ###   ########.fr        #
+#    Updated: 2019/08/13 15:07:06 by nshelly          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LFT_PATH)
-	@$(CC) -o $(NAME) $(OBJ) -lm -L $(LFT_PATH) -lft
+	@$(CC) -o $(NAME) $(OBJ) -L $(LFT_PATH) -lft
 
 ./obj/%.o: ./src/%.c
 	@mkdir -p $(OBJ_PATH)
