@@ -6,7 +6,7 @@
 /*   By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 23:33:51 by nshelly           #+#    #+#             */
-/*   Updated: 2019/08/14 17:49:12 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/14 19:46:35 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ char	*reader(int fd)
 		else
 			arr = ft_strdup(buff);
 	}
+	if (buff[20] == '\n')
+		return (0);
 	return (arr);
 }
