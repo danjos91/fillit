@@ -31,7 +31,7 @@ char	**sp(int numb_of_figures, int increment)
 	i = 0;
 	while (i < n - 1)
 	{
-		square[i] = ft_strsub("...........", 0, n - 1);
+		square[i] = ft_strsub("..........", 0, n - 1);
 		i++;
 	}
 	return (square);
@@ -82,6 +82,7 @@ char	**print_figure(char **map, t_coord *figures, int size)
 
 	i = 0;
 	y = 0;
+	x = 0;
 	while (y < size)
 	{
 		x = 0;

@@ -6,7 +6,7 @@
 /*   By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 23:37:26 by nshelly           #+#    #+#             */
-/*   Updated: 2019/08/11 23:51:21 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:51:37 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char	**brute_force(char **tetri_map, t_coord *figures)
 		{
 			ft_upleft(&figures, x, y);
 			if (check_figure(tetri_map, figures, size))
-				map = brute_force(print_figure(tetri_map,\
+				map = brute_force(print_figure(tetri_map, \
 							figures, size), figures->next);
 			if (map)
 				return (map);
@@ -117,10 +117,11 @@ void	solve(t_coord *figures, int numb_of_figures)
 	while (!(result = brute_force(sol_map, figures)))
 	{
 		increment++;
-		ft_memdel((void **)sol_map);
+		clean_map(sol_map);
 		sol_map = sp(numb_of_figures, increment);
 	}
 	print_map(result);
+	clean_map(result);
 }
 /*
 ** brute_force is the algorithm(backtracking)

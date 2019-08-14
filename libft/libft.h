@@ -6,7 +6,7 @@
 /*   By: nshelly <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 15:47:01 by nshelly           #+#    #+#             */
-/*   Updated: 2019/07/31 20:37:38 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:53:26 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ size_t				ft_plch(char const *s);
 int					is_wspace(char s);
 void				ft_fr_words(char **str, size_t i);
 int					get_next_line(const int fd, char **line);
+char				*ft_strjoin_del(char const *s1, char const *s2, int nb);
 
 #endif

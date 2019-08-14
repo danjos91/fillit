@@ -6,7 +6,7 @@
 /*   By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 23:33:51 by nshelly           #+#    #+#             */
-/*   Updated: 2019/08/11 23:33:56 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:49:12 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int		check(char *buf, int bytes)
 		if (buf[i] == '#' && ++reshetki > 4)
 			return (0);
 		if (i % 5 == 4 && buf[i] != '\n')
-		{
 			return (0);
-		}
 		i++;
 	}
 	if (ft_strlen(buf) == 21 && (buf[20] != '\n'))
@@ -82,8 +80,7 @@ char	*reader(int fd)
 		if (arr)
 		{
 			tmp = arr;
-			arr = ft_strjoin(tmp, buff);
-			free(tmp);
+			arr = ft_strjoin_del(tmp, buff, 1);
 		}
 		else
 			arr = ft_strdup(buff);

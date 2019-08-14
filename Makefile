@@ -30,7 +30,7 @@ $(NAME): $(OBJ)
 
 ./obj/%.o: ./src/%.c
 	@mkdir -p $(OBJ_PATH)
-	@$(CC) $(CC_FLAGS) -I ./includes/ -o $@ -c $<
+	@$(CC) $(CC_FLAGS) -I includes/ -o $@ -c $<
 
 clean:
 	@make -C $(LFT_PATH) clean

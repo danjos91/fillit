@@ -6,7 +6,7 @@
 /*   By: ryaoi <ryaoi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/12 14:12:48 by ryaoi             #+#    #+#             */
-/*   Updated: 2019/08/11 23:53:00 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:45:27 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct		s_coord
 	struct s_coord	*next;
 }					t_coord;
 
+void				clean_map(char **map);
 int					check_order(char *buf);
 int					check(char *buf, int bytes);
 char				*reader(int fd);

@@ -6,7 +6,7 @@
 /*   By: nshelly <nshelly@student.21school.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 23:18:43 by nshelly           #+#    #+#             */
-/*   Updated: 2019/08/11 23:24:52 by nshelly          ###   ########.fr       */
+/*   Updated: 2019/08/14 17:46:06 by nshelly          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int			count_figures(char *str)
 	int		i;
 	int		result;
 
+	if (str == 0)
+		return (0);
 	result = 0;
 	i = 0;
 	while (str[i] != '\0')
@@ -45,6 +47,7 @@ void		set_coordinates(t_coord **tmp, char *str)
 		}
 		i++;
 	}
+	ft_strdel(&str);
 }
 
 t_coord		*get_coords(char *str)
@@ -58,14 +61,14 @@ t_coord		*get_coords(char *str)
 	add21 = 0;
 	c = 'A';
 	c_tetri = count_figures(str);
-	if (!(stock = (t_coord *)malloc(sizeof(t_coord))))
-		return (NULL);
+	if (!(stock = (t_coord *)ft_memalloc(sizeof(t_coord))))
+		return (0);
 	tmp = stock;
 	while (c_tetri > 0)
 	{
 		tmp->c = c;
 		set_coordinates(&tmp, ft_strsub(str, 0 + add21, 20));
-		if (!(tmp->next = (t_coord *)malloc(sizeof(t_coord))))
+		if (!(tmp->next = (t_coord *)ft_memalloc(sizeof(t_coord))))
 			return (0);
 		tmp = tmp->next;
 		c_tetri--;
